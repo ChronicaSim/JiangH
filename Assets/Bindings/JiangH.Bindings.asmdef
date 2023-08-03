@@ -1,0 +1,18 @@
+{
+	"name": "JiangH.Bindings",
+	"rootNamespace": "JiangH.Bindings",
+    "references": [
+        "JiangH.Views",
+        "JiangH.Data.Interfaces",
+        "JiangH.Sessions"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

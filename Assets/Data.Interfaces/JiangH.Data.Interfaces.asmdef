@@ -1,0 +1,15 @@
+{
+	"name": "JiangH.Data.Interfaces",
+	"rootNamespace": "JiangH.Data.Interfaces",
+    "references": [
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": true
+}

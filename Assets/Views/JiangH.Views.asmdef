@@ -1,0 +1,16 @@
+{
+    "name": "JiangH.Views",
+    "rootNamespace": "JiangH.Views",
+    "references": [
+        "JiangH.Plugins"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -10,6 +10,8 @@ namespace JiangH.Data.Departs
 
         public string name { get; }
 
+        public bool isMain { get; set; }
+
         public Depart()
         {
             uid = count++.ToString();

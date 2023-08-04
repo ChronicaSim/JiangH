@@ -8,5 +8,6 @@ namespace JiangH.Data.Interfaces
 
         string fullName { get; }
         decimal money { get; }
+        bool isLeader { get; set; }
     }
 }

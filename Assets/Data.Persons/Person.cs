@@ -12,6 +12,7 @@ namespace JiangH.Data.Persons
 
         public string fullName { get; }
         public decimal money { get; internal set; }
+        public bool isLeader { get ; set ; }
 
         public Person()
         {

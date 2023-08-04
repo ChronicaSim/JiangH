@@ -1,11 +1,14 @@
 ﻿using JiangH.Data.Interfaces;
 using JiangH.Sessions;
 using JiangH.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 static class ViewRefreshExtension
 {
+    public static Func<IDepart, IEnumerable<IPerson>> GetDepart2Persons;
+
     public static void ClearDesignData(this MainView mainView)
     {
         mainView.persons.Clear();
@@ -13,12 +16,15 @@ static class ViewRefreshExtension
 
     public static void Refresh(this MainView mainView, Session session)
     {
+        GetDepart2Persons = session.relationQuery.GetDepart2Persons;
+
         var depart = session.relationQuery.GetPerson2Depart(session.player);
         var persons = session.relationQuery.GetDepart2Persons(depart);
 
         var sect = session.relationQuery.GetSectByDepart(depart);
         var departs = session.relationQuery.GetDepartsBySect(sect);
 
+        mainView.mainDepart.Refresh(departs.Single(x=>x.isMain));
         mainView.departs.Refresh(departs);
         mainView.persons.Refresh(persons);
     }
@@ -54,7 +60,7 @@ static class ViewRefreshExtension
     {
         containerView.defaultItem.gameObject.SetActive(false);
 
-        var dictDepart = departs.ToDictionary(x => x.uid);
+        var dictDepart = departs.Where(x=>!x.isMain).ToDictionary(x => x.uid);
         var dictView = containerView.items.ToDictionary(x => x.uuid);
 
         var needAdd = dictDepart.Keys.Except(dictView.Keys).ToArray();
@@ -88,5 +94,15 @@ static class ViewRefreshExtension
     {
         var departView = itemView as DepartItemView;
         departView.departName.text = depart.name;
+
+        var persons = GetDepart2Persons(depart);
+
+        var leader = persons.SingleOrDefault(x => x.isLeader);
+        departView.leader.gameObject.SetActive(leader != null);
+
+        if (leader != null)
+        {
+            departView.leader.personName.text = leader.fullName;
+        }
     }
 }

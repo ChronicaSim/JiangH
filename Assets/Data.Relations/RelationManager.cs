@@ -41,6 +41,23 @@ namespace JiangH.Sessions
 
                 Associate(person, depart);
             }
+
+            foreach(var departsInSect in sect2Departs.Values)
+            {
+                departsInSect.First().isMain = true;
+            }
+
+            foreach(var personsInDepart in depart2Persons.Values)
+            {
+                var player = personsInDepart.SingleOrDefault(x => x.isPlayer);
+                if(player != null)
+                {
+                    player.isLeader = true;
+                    continue;
+                }
+
+                personsInDepart.First().isLeader = true;
+            }
         }
 
         private void Associate(IPerson person, IDepart depart)

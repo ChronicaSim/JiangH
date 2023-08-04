@@ -3,6 +3,9 @@
     public interface IDepart
     {
         string uid { get; }
+
+        bool isMain { get; set; }
+
         string name { get; }
     }
 }

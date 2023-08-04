@@ -8,9 +8,13 @@ namespace JiangH.Data.Departs
 
         public string uid { get; }
 
+        public string name { get; }
+
         public Depart()
         {
             uid = count++.ToString();
+
+            name = $"Depart{uid}";
         }
     }
 }

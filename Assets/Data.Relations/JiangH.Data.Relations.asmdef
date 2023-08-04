@@ -1,12 +1,8 @@
 {
-	"name": "JiangH.Sessions",
-	"rootNamespace": "JiangH.Sessions",
+	"name": "JiangH.Data.Relations",
+	"rootNamespace": "JiangH.Data.Relations",
     "references": [
-        "JiangH.Data.Interfaces",
-        "JiangH.Data.Persons",
-        "JiangH.Data.Departs",
-        "JiangH.Data.Relations",
-        "JiangH.Data.Sects"
+        "JiangH.Data.Interfaces"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

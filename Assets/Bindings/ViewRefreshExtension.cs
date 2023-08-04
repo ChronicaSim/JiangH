@@ -13,9 +13,14 @@ static class ViewRefreshExtension
 
     public static void Refresh(this MainView mainView, Session session)
     {
-        var depart = session.relation.GetPerson2Depart(session.player);
+        var depart = session.relationQuery.GetPerson2Depart(session.player);
+        var persons = session.relationQuery.GetDepart2Persons(depart);
 
-        mainView.persons.Refresh(session.relation.GetDepart2Persons(depart));
+        var sect = session.relationQuery.GetSectByDepart(depart);
+        var departs = session.relationQuery.GetDepartsBySect(sect);
+
+        mainView.departs.Refresh(departs);
+        mainView.persons.Refresh(persons);
     }
 
     public static void Refresh(this List<PersonView> personViews, IEnumerable<IPerson> persons)
@@ -45,9 +50,43 @@ static class ViewRefreshExtension
         }
     }
 
+    public static void Refresh(this ContainerView containerView, IEnumerable<IDepart> departs)
+    {
+        containerView.defaultItem.gameObject.SetActive(false);
+
+        var dictDepart = departs.ToDictionary(x => x.uid);
+        var dictView = containerView.items.ToDictionary(x => x.uuid);
+
+        var needAdd = dictDepart.Keys.Except(dictView.Keys).ToArray();
+        var needRemove = dictView.Keys.Except(dictDepart.Keys).ToArray();
+
+        foreach (var key in needRemove)
+        {
+            containerView.RemoveItem(dictView[key]);
+        }
+
+        foreach (var key in needAdd)
+        {
+            var itemView =containerView.AddItem();
+            itemView.gameObject.SetActive(true);
+            itemView.uuid = key;
+        }
+
+        foreach (var itemView in containerView.items)
+        {
+            itemView.Refresh(dictDepart[itemView.uuid]);
+        }
+    }
+
     public static void Refresh(this PersonView personView, IPerson person)
     {
         personView.name = person.fullName;
         personView.money = (float)person.money;
+    }
+
+    public static void Refresh(this ItemView itemView, IDepart depart)
+    {
+        var departView = itemView as DepartItemView;
+        departView.departName.text = depart.name;
     }
 }

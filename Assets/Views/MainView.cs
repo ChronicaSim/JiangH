@@ -8,6 +8,8 @@ namespace JiangH.Views
 {
     public class MainView : MonoBehaviour
     {
+        public ContainerView departs;
+
         public List<PersonView> persons = new List<PersonView>();
 
         public Button nextTurn;

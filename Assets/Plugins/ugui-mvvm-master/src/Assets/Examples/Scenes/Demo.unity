@@ -2189,7 +2189,7 @@ MonoBehaviour:
   _source:
     Component: {fileID: 739114849}
     Property: TestProperty
-  _sourceUpdateTrigger: 0
+  _sourceUpdateTrigger: 1
   _sourceEvent: 
   _mode: 1
   _converter: {fileID: 0}
@@ -5167,7 +5167,7 @@ MonoBehaviour:
   _source:
     Component: {fileID: 739114849}
     Property: Selected
-  _sourceUpdateTrigger: 0
+  _sourceUpdateTrigger: 1
   _sourceEvent: 
   _mode: 3
   _converter: {fileID: 0}
@@ -5191,7 +5191,7 @@ MonoBehaviour:
   _source:
     Component: {fileID: 739114849}
     Property: Children
-  _sourceUpdateTrigger: 0
+  _sourceUpdateTrigger: 1
   _sourceEvent: 
   _mode: 1
   _converter: {fileID: 0}

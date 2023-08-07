@@ -3,6 +3,7 @@
 using System.Collections.ObjectModel;
 #endif
 
+[MvvmDataContext]
 class TestPOCOVm : AViewModel, IParentVm
 {
     string _testString;

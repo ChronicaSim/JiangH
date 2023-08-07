@@ -1,5 +1,6 @@
 ﻿using AutoSuggest;
 using System;
+using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -73,7 +74,7 @@ namespace uguimvvm
                     {
                         try
                         {
-                            return a.GetTypes();
+                            return a.GetTypes().Where(x=>x.GetCustomAttribute<MvvmDataContextAttribute>() != null);
                         }
                         catch (Exception)
                         {

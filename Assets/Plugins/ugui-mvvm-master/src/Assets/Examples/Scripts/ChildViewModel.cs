@@ -1,5 +1,6 @@
 ﻿using uguimvvm;
 
+[MvvmDataContext]
 class ChildViewModel : AViewModel
 {
     private readonly IParentVm _parent;

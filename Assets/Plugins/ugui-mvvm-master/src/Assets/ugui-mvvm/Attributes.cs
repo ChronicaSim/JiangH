@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace uguimvvm
 {
@@ -6,6 +7,12 @@ namespace uguimvvm
     /// Attribute to mark a serialized property/field as pointing to a component.
     /// </summary>
     public class ComponentReferenceAttribute : PropertyAttribute
+    {
+
+    }
+
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface)]
+    public class MvvmDataContextAttribute : PropertyAttribute
     {
 
     }

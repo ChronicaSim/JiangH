@@ -1,10 +1,11 @@
 ﻿using System.Linq;
+using uguimvvm;
 #if UNITY_WSA || !NET_LEGACY
 using System.Collections.ObjectModel;
-#else
-using uguimvvm;
 #endif
 
+
+[MvvmDataContext]
 class TestViewModel : ABehaviourViewModel, IParentVm
 {
     string _testProperty;

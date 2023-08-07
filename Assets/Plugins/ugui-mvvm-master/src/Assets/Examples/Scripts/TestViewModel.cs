@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using UnityEngine;
 #if UNITY_WSA || !NET_LEGACY
 using System.Collections.ObjectModel;
 #else
@@ -8,11 +7,6 @@ using uguimvvm;
 
 class TestViewModel : ABehaviourViewModel, IParentVm
 {
-    [field: SerializeField]
-    public float Health { get => health; set { health = value; Debug.Log(health); } }
-
-    private float health;
-
     string _testProperty;
 
     public string TestProperty

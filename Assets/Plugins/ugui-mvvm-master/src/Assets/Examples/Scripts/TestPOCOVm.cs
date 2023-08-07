@@ -92,14 +92,3 @@ interface IParentVm
 {
     void RemoveChild(ChildViewModel child);
 }
-
-
-class MainViewModel : AViewModel
-{
-    string _testString;
-    public string TestString
-    {
-        get { return _testString; }
-        set { SetProperty("TestString", ref _testString, value); }
-    }
-}

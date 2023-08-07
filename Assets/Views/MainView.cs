@@ -8,7 +8,7 @@ namespace JiangH.Views
 {
     public class MainView : MonoBehaviour
     {
-        public DepartItemView mainDepart;
+        public SectView sect;
 
         public ContainerView departs;
 

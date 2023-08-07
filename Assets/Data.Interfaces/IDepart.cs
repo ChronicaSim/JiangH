@@ -7,5 +7,7 @@
         bool isMain { get; set; }
 
         string name { get; }
+
+        IOffice leaderOffice { get; }
     }
 }

@@ -8,6 +8,7 @@ using System.Linq;
 static class ViewRefreshExtension
 {
     public static Func<IDepart, IEnumerable<IPerson>> GetDepart2Persons;
+    public static Func<IOffice, IPerson> GetOffice2Person;
 
     public static void ClearDesignData(this MainView mainView)
     {
@@ -17,14 +18,14 @@ static class ViewRefreshExtension
     public static void Refresh(this MainView mainView, Session session)
     {
         GetDepart2Persons = session.relationQuery.GetDepart2Persons;
-
+       
         var depart = session.relationQuery.GetPerson2Depart(session.player);
         var persons = session.relationQuery.GetDepart2Persons(depart);
 
         var sect = session.relationQuery.GetSectByDepart(depart);
         var departs = session.relationQuery.GetDepartsBySect(sect);
 
-        mainView.mainDepart.Refresh(departs.Single(x=>x.isMain));
+        mainView.sect.Refresh(sect);
         mainView.departs.Refresh(departs);
         mainView.persons.Refresh(persons);
     }
@@ -95,14 +96,23 @@ static class ViewRefreshExtension
         var departView = itemView as DepartItemView;
         departView.departName.text = depart.name;
 
-        var persons = GetDepart2Persons(depart);
-
-        var leader = persons.SingleOrDefault(x => x.isLeader);
+        var leader = GetOffice2Person(depart.leaderOffice);
         departView.leader.gameObject.SetActive(leader != null);
 
         if (leader != null)
         {
             departView.leader.personName.text = leader.fullName;
+        }
+    }
+
+    public static void Refresh(this SectView sectView, ISect sect)
+    {
+        var leader = GetOffice2Person(sect.leaderOffice);
+        sectView.leader.gameObject.SetActive(leader != null);
+
+        if (leader != null)
+        {
+            sectView.leader.personName.text = leader.fullName;
         }
     }
 }

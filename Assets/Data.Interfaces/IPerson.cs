@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace JiangH.Data.Interfaces
 {
     public interface IPerson
@@ -8,6 +10,7 @@ namespace JiangH.Data.Interfaces
 
         string fullName { get; }
         decimal money { get; }
+
         bool isLeader { get; set; }
     }
 }

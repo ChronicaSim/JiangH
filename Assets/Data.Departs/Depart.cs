@@ -12,6 +12,8 @@ namespace JiangH.Data.Departs
 
         public bool isMain { get; set; }
 
+        public IOffice leaderOffice { get; }
+
         public Depart()
         {
             uid = count++.ToString();

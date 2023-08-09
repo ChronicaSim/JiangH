@@ -8,6 +8,14 @@ namespace JiangH.Data.Sects
     {
         public IOffice leaderOffice { get; } = new Office() { name = "SectLeader" };
 
-        public IEnumerable<IOffice> senatorOffices => throw new System.NotImplementedException();
+        public IOffice viceLeaderOffice { get; } = new Office() { name = "ViceSectLeader" };
+
+        public IEnumerable<IOffice> senatorOffices { get; } = new Office[]
+        {
+            new Office() { name = "Senator" },
+            new Office() { name = "Senator" },
+            new Office() { name = "Senator" },
+            new Office() { name = "Senator" }
+        };
     }
 }

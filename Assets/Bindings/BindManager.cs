@@ -50,11 +50,27 @@ namespace JiangH.Bindings
                 mainView.Refresh(session);
             };
 
-            mainView.cmdNextTurn.execute = (() =>
+            mainView.OnCommmand = ((param) =>
             {
-                session.OnNextTurn();
+                switch(param)
+                {
+                    case MainView.CmdNextTurnParameter:
+                        session.OnNextTurn();
+                        break;
+                }
+
                 mainView.Refresh(session);
+
+                //session.OnMessage(param.ConvertToMessage());
             });
         }
     }
+
+    //static class CommandParameterExtensions
+    //{
+    //    public static IMessage ConvertToMessage(this MainView.CommandParameter parameter)
+    //    {
+
+    //    }
+    //}
 }

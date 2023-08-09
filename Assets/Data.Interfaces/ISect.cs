@@ -5,6 +5,7 @@ namespace JiangH.Data.Interfaces
     public interface ISect
     {
         IOffice leaderOffice { get; }
+        IOffice viceLeaderOffice { get; }
         IEnumerable<IOffice> senatorOffices { get; }
     }
 

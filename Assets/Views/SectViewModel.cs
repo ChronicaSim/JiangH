@@ -16,6 +16,20 @@ namespace JiangH.Views
             set => SetProperty(ref leaderOffice, value);
         }
 
+        private OfficeViewModel viceLeaderOffice;
+        public OfficeViewModel ViceLeaderOffice
+        {
+            get => viceLeaderOffice;
+            set => SetProperty(ref viceLeaderOffice, value);
+        }
+
+        private ObservableCollection<OfficeViewModel> senatorOffices;
+        public ObservableCollection<OfficeViewModel> SenatorOffices
+        {
+            get => senatorOffices;
+            set => SetProperty(ref senatorOffices, value);
+        }
+
         private ObservableCollection<OfficeViewModel> departLeaderOffices;
         public ObservableCollection<OfficeViewModel> DepartLeaderOffices
         {
@@ -26,12 +40,16 @@ namespace JiangH.Views
         public SectViewModel()
         {
             leaderOffice = new OfficeViewModel();
+            viceLeaderOffice = new OfficeViewModel();
+            senatorOffices = new ObservableCollection<OfficeViewModel>();
             departLeaderOffices = new ObservableCollection<OfficeViewModel>();
         }
 
         public static SectViewModel Default { get; } = new SectViewModel()
         {
             LeaderOffice = OfficeViewModel.Default,
+            ViceLeaderOffice = OfficeViewModel.Default,
+            SenatorOffices = new ObservableCollection<OfficeViewModel>(OfficeViewModel.DefaultCollection),
             DepartLeaderOffices = new ObservableCollection<OfficeViewModel>(OfficeViewModel.DefaultCollection)
         };
     }
@@ -57,7 +75,7 @@ namespace JiangH.Views
 
         public OfficeViewModel()
         {
-            personViewModel = new PersonViewModel();
+
         }
 
         public static OfficeViewModel Default { get; } = new OfficeViewModel()

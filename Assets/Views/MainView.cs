@@ -5,14 +5,25 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using uguimvvm;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace JiangH.Views
 {
     public class MainView : ViewModelBehaviour
     {
-        public RelayCommand cmdNextTurn { get; } = new RelayCommand();
-        public RelayCommand cmdSwitchView { get; } = new RelayCommand();
+        public class CommandParameter
+        {
+        }
+
+        public class CmdNextTurnParameter : CommandParameter
+        {
+
+        }
+
+        public Action<CommandParameter> OnCommmand;
+
+        public RelayCommand cmdNextTurn { get; private set; }
 
         private SectViewModel sectViewModel;
         public SectViewModel SectViewModel
@@ -31,7 +42,7 @@ namespace JiangH.Views
 
         public override void OnStart()
         {
-
+            cmdNextTurn = new RelayCommand(() => OnCommmand.Invoke(new CmdNextTurnParameter()));
         }
 
         // Update is called once per frame

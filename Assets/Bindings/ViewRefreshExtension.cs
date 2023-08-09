@@ -33,9 +33,10 @@ static class ViewRefreshExtension
     public static void Refresh(this SectViewModel viewModel, ISect sect)
     {
         viewModel.LeaderOffice.Refresh(sect.leaderOffice);
+        viewModel.ViceLeaderOffice.Refresh(sect.viceLeaderOffice);
+        viewModel.SenatorOffices.Refresh(sect.senatorOffices);
 
         var sectLeader = GetOffice2Person(sect.leaderOffice);
-
         var departs = GetSect2Departs(sect).Where(x=>
         {
             var departLeader = GetOffice2Person(x.leaderOffice);

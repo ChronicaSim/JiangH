@@ -1,9 +1,8 @@
 {
-	"name": "JiangH.Data.Sects",
-	"rootNamespace": "JiangH.Data.Sects",
+	"name": "JiangH.Data.Offices",
+	"rootNamespace": "JiangH.Data.Offices",
     "references": [
-        "JiangH.Data.Interfaces",
-        "JiangH.Data.Offices"
+        "JiangH.Data.Interfaces"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

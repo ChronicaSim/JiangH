@@ -14,23 +14,41 @@ namespace JiangH.Bindings
 
             Debug.Log($"SessionManager get current scene '{scene.name}'");
 
-            var initView = scene.GetRootGameObjects()
-                .Select(obj => obj.GetComponent<InitialView>())
+            var viewModel = scene.GetRootGameObjects()
+                .Select(obj => obj.GetComponent<ViewModelBehaviour>())
                 .SingleOrDefault(x => x != null);
 
-            initView?.OnSwitchScene.AddListener(NewSession);
+            switch(viewModel)
+            {
+                case InitialView initialView:
+                    {
+                        initialView.OnSwitchScene.AddListener(NewSession);
+                    }
+                    break;
+                case MainView mainView:
+                    {
+                        mainView.InitialViewModelDefault();
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void NewSession()
         {
+            var session = new Session();
+
             var mainView = SceneManager.GetActiveScene().GetRootGameObjects()
                 .Select(obj => obj.GetComponent<MainView>())
                 .Single(x => x != null);
 
-            mainView.ClearDesignData();
+            mainView.InitialViewModel();
 
-            var session = new Session();
-            mainView.Refresh(session);
+            mainView.AfterOnStart = () =>
+            {
+                mainView.Refresh(session);
+            };
 
             mainView.nextTurn.onClick.AddListener(() =>
             {

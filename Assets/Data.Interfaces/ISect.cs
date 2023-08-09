@@ -5,12 +5,15 @@ namespace JiangH.Data.Interfaces
     public interface ISect
     {
         IOffice leaderOffice { get; }
-        IEnumerable<IOffice> masterOffices { get; }
+        IEnumerable<IOffice> senatorOffices { get; }
     }
 
     public interface IOffice
     {
+        string uid { get; }
+
         OfficeType type { get; }
+        string name { get; }
     }
 
     public enum OfficeType

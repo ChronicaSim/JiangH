@@ -5,12 +5,11 @@ using UnityEngine.SceneManagement;
 
 namespace JiangH.Views
 {
-    public class InitialView : MonoBehaviour
+    public class InitialView : ViewModelBehaviour
     {
         public UnityEvent OnSwitchScene;
 
-        // Start is called before the first frame update
-        void Start()
+        public override void OnStart()
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
             SceneManager.LoadScene("MainScene", new LoadSceneParameters(LoadSceneMode.Single));

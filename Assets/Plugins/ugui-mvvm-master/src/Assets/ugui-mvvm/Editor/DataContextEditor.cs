@@ -21,6 +21,7 @@ class DataContextEditor : Editor
         var tprop = serializedObject.FindProperty("_type");
         var iprop = serializedObject.FindProperty("_instantiateOnAwake");
         var bprop = serializedObject.FindProperty("_propertyBinding");
+        var disActiveWhenNull = serializedObject.FindProperty("_disActiveWhenNull");
 
         if (_autoSuggestField == null)
         {
@@ -63,6 +64,9 @@ class DataContextEditor : Editor
                 EditorGUILayout.PropertyField(bprop);
             }
         }
+
+        EditorGUILayout.PropertyField(disActiveWhenNull);
+
 
         serializedObject.ApplyModifiedProperties();
 

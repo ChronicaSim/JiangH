@@ -3,12 +3,14 @@ using JiangH.Sessions;
 using JiangH.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 static class ViewRefreshExtension
 {
     public static Func<IDepart, IEnumerable<IPerson>> GetDepart2Persons;
     public static Func<IOffice, IPerson> GetOffice2Person;
+    public static Func<ISect, IEnumerable<IDepart>> GetSect2Departs;
 
     public static void ClearDesignData(this MainView mainView)
     {
@@ -18,16 +20,85 @@ static class ViewRefreshExtension
     public static void Refresh(this MainView mainView, Session session)
     {
         GetDepart2Persons = session.relationQuery.GetDepart2Persons;
-       
-        var depart = session.relationQuery.GetPerson2Depart(session.player);
+        GetOffice2Person = session.relationQuery.GetOffice2Persons;
+        GetSect2Departs = session.relationQuery.GetDepartsBySect;
+
+         var depart = session.relationQuery.GetPerson2Depart(session.player);
         var persons = session.relationQuery.GetDepart2Persons(depart);
 
         var sect = session.relationQuery.GetSectByDepart(depart);
         var departs = session.relationQuery.GetDepartsBySect(sect);
 
-        mainView.sect.Refresh(sect);
-        mainView.departs.Refresh(departs);
-        mainView.persons.Refresh(persons);
+        mainView.SectViewModel.Refresh(sect);
+        //mainView.sect.Refresh(sect);
+        //mainView.departs.Refresh(departs);
+        //mainView.persons.Refresh(persons);
+    }
+
+    public static void Refresh(this SectViewModel viewModel, ISect sect)
+    {
+        viewModel.LeaderOffice.Refresh(sect.leaderOffice);
+
+        var sectLeader = GetOffice2Person(sect.leaderOffice);
+
+        var departs = GetSect2Departs(sect).Where(x=>
+        {
+            var departLeader = GetOffice2Person(x.leaderOffice);
+            return departLeader != sectLeader;
+        });
+
+        viewModel.DepartLeaderOffices.Refresh(departs.Select(x=>x.leaderOffice));
+    }
+
+    public static void Refresh(this ObservableCollection<OfficeViewModel> viewModels, IEnumerable<IOffice> office)
+    {
+        var dictOffice = office.ToDictionary(x => x.uid);
+        var dictViewModels = viewModels.ToDictionary(x => x.uid);
+
+        var needAdd = dictOffice.Keys.Except(dictViewModels.Keys).ToArray();
+        var needRemove = dictViewModels.Keys.Except(dictOffice.Keys).ToArray();
+
+        foreach (var key in needRemove)
+        {
+            viewModels.Remove(dictViewModels[key]);
+        }
+
+        foreach (var key in needAdd)
+        {
+            var view = new OfficeViewModel();
+            view.uid = key;
+
+            viewModels.Add(view);
+        }
+
+        foreach (var view in viewModels)
+        {
+            view.Refresh(dictOffice[view.uid]);
+        }
+    }
+
+    public static void Refresh(this OfficeViewModel viewModel, IOffice office)
+    {
+        viewModel.OfficeName = office.name;
+
+        var person = GetOffice2Person(office);
+        if(person == null)
+        {
+            viewModel.PersonItemView = null;
+            return;
+        }
+
+        if(viewModel.PersonItemView == null)
+        {
+            viewModel.PersonItemView = new PersonViewModel();
+        }
+
+        viewModel.PersonItemView.Refresh(person);
+    }
+
+    public static void Refresh(this PersonViewModel viewModel, IPerson person)
+    {
+        viewModel.PersonName = person.fullName;
     }
 
     public static void Refresh(this List<PersonView> personViews, IEnumerable<IPerson> persons)

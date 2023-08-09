@@ -12,6 +12,9 @@ namespace JiangH.Sessions
         public Dictionary<IDepart, ISect> depart2Sect = new Dictionary<IDepart, ISect>();
         public Dictionary<ISect, List<IDepart>> sect2Departs = new Dictionary<ISect, List<IDepart>>();
 
+        public Dictionary<IPerson, List<IOffice>> person2Offices = new Dictionary<IPerson, List<IOffice>>();
+        public Dictionary<IOffice, IPerson> office2Person = new Dictionary<IOffice, IPerson>();
+
         public IDepart GetPerson2Depart(IPerson person)
         {
             return person2Depart[person];
@@ -42,21 +45,33 @@ namespace JiangH.Sessions
                 Associate(person, depart);
             }
 
-            foreach(var departsInSect in sect2Departs.Values)
+            foreach(var pair in depart2Persons)
             {
-                departsInSect.First().isMain = true;
-            }
+                var depart = pair.Key;
+                var personsInDepart = pair.Value;
 
-            foreach(var personsInDepart in depart2Persons.Values)
-            {
-                var player = personsInDepart.SingleOrDefault(x => x.isPlayer);
-                if(player != null)
+                var deparLeader = personsInDepart.SingleOrDefault(x => x.isPlayer);
+                if(deparLeader == null)
                 {
-                    player.isLeader = true;
-                    continue;
+                    deparLeader = personsInDepart.First();
                 }
 
-                personsInDepart.First().isLeader = true;
+                Associate(deparLeader, depart.leaderOffice);
+            }
+
+            foreach (var pair in sect2Departs)
+            {
+                var sect = pair.Key;
+                var departsInSect = pair.Value;
+
+                var departLeaders = departsInSect.Select(x => office2Person[x.leaderOffice]);
+                var sectLeader = departLeaders.SingleOrDefault(x => x.isPlayer);
+                if(sectLeader == null)
+                {
+                    sectLeader = departLeaders.FirstOrDefault();
+                }
+
+                Associate(sectLeader, sect.leaderOffice);
             }
         }
 
@@ -86,6 +101,18 @@ namespace JiangH.Sessions
             departs.Add(depart);
         }
 
+        private void Associate(IPerson person, IOffice office)
+        {
+            office2Person[office] = person;
+            if(!person2Offices.TryGetValue(person, out var offices))
+            {
+                offices = new List<IOffice>();
+                person2Offices.Add(person, offices);
+            }
+
+            offices.Add(office);
+        }
+
         public ISect GetSectByDepart(IDepart depart)
         {
             return depart2Sect[depart];
@@ -94,6 +121,16 @@ namespace JiangH.Sessions
         public IEnumerable<IDepart> GetDepartsBySect(ISect sect)
         {
             return sect2Departs[sect];
+        }
+
+        public IPerson GetOffice2Persons(IOffice office)
+        {
+            if(office2Person.TryGetValue(office, out var person))
+            {
+                return person;
+            }
+
+            return null;
         }
     }
 }

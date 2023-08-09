@@ -2,7 +2,8 @@
 	"name": "JiangH.Data.Departs",
 	"rootNamespace": "JiangH.Data.Departs",
     "references": [
-        "JiangH.Data.Interfaces"
+        "JiangH.Data.Interfaces",
+        "JiangH.Data.Offices"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

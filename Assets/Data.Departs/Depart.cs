@@ -1,4 +1,5 @@
 using JiangH.Data.Interfaces;
+using JiangH.Data.Offices;
 
 namespace JiangH.Data.Departs
 {
@@ -12,7 +13,7 @@ namespace JiangH.Data.Departs
 
         public bool isMain { get; set; }
 
-        public IOffice leaderOffice { get; }
+        public IOffice leaderOffice { get; } = new Office() { name = "DepartLeader" };
 
         public Depart()
         {

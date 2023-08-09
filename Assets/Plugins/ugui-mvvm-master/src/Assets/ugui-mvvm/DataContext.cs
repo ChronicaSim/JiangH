@@ -61,6 +61,10 @@ namespace uguimvvm
 
         private readonly List<DependentProperty> _dependents = new List<DependentProperty>();
 
+        [SerializeField]
+        private bool _disActiveWhenNull;
+
+
         void Awake()
         {
             if (_propertyBinding != null && _propertyBinding.Component != null)
@@ -89,6 +93,11 @@ namespace uguimvvm
         /// <param name="value">The new value to assign to <see cref="Value"/>.</param>
         public void UpdateValue(object value)
         {
+            if(_disActiveWhenNull)
+            {
+                this.gameObject.SetActive(value != null);
+            }
+
             if (value == _value) return;
 
             _value = value;

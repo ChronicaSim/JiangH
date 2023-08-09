@@ -9,5 +9,6 @@ namespace JiangH.Data.Interfaces
         IEnumerable<IPerson> GetDepart2Persons(IDepart person);
         ISect GetSectByDepart(IDepart depart);
         IEnumerable<IDepart> GetDepartsBySect(ISect sect);
+        IPerson GetOffice2Persons(IOffice office);
     }
 }

@@ -1,9 +1,7 @@
 {
-    "name": "JiangH.Views",
-    "rootNamespace": "JiangH.Views",
+    "name": "JiangH.Views.Messages",
+    "rootNamespace": "JiangH.Views.Messages",
     "references": [
-        "JiangH.Plugins",
-        "JiangH.Views.Messages"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

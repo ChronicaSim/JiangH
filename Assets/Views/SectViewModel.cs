@@ -3,6 +3,8 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using uguimvvm;
+using System;
+using System.Windows.Input;
 
 namespace JiangH.Views
 {
@@ -59,11 +61,19 @@ namespace JiangH.Views
     {
         public string uid;
 
+        public RelayCommand RevokeCommand { get; }
+
         private PersonViewModel personViewModel;
         public PersonViewModel PersonItemView
         {
             get => personViewModel;
-            set => SetProperty(ref personViewModel, value);
+            set
+            {
+                if(SetProperty(ref personViewModel, value))
+                {
+                    RevokeCommand.RaiseCanExecuteChanged();
+                }
+            }
         }
 
         private string officeName;
@@ -75,7 +85,7 @@ namespace JiangH.Views
 
         public OfficeViewModel()
         {
-
+            RevokeCommand = new RelayCommand(() => SendMessage(new RevokeOffice(uid, PersonItemView.uid)), ()=> PersonItemView!= null);
         }
 
         public static OfficeViewModel Default { get; } = new OfficeViewModel()
@@ -95,6 +105,8 @@ namespace JiangH.Views
     [MvvmDataContext]
     public class PersonViewModel : ViewModel
     {
+        public string uid;
+
         private string personName;
         public string PersonName
         {
@@ -108,8 +120,32 @@ namespace JiangH.Views
         };
     }
 
+    public interface IMessage
+    {
+
+    }
+
+    public class RevokeOffice : IMessage
+    {
+        public readonly string officeUid;
+        public readonly string personUid;
+
+        public RevokeOffice(string officeUid, string personUid)
+        {
+            this.officeUid = officeUid;
+            this.personUid = personUid;
+        }
+    }
+
+    public class NextTurn : IMessage
+    {
+
+    }
+
     public class ViewModel : INotifyPropertyChanged
     {
+        public static Action<IMessage> SendMessage;
+
         /// <summary>
         ///     Multicast event for property change notifications.
         /// </summary>

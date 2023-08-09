@@ -7,6 +7,11 @@ using System.Linq;
 
 namespace JiangH.Sessions
 {
+    public interface IMessage
+    {
+
+    }
+
     public class Session
     {
         public IPerson player => personManager.Single(x => x.isPlayer);
@@ -32,6 +37,11 @@ namespace JiangH.Sessions
         public void OnNextTurn()
         {
             personManager.OnNextTurn();
+        }
+
+        public void OnMessage(JiangH.Views.IMessage message)
+        {
+            throw new NotImplementedException();
         }
     }
 }

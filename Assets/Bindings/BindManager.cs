@@ -45,32 +45,13 @@ namespace JiangH.Bindings
 
             mainView.InitialViewModel();
 
+
             mainView.AfterOnStart = () =>
             {
                 mainView.Refresh(session);
             };
 
-            mainView.OnCommmand = ((param) =>
-            {
-                switch(param)
-                {
-                    case MainView.CmdNextTurnParameter:
-                        session.OnNextTurn();
-                        break;
-                }
-
-                mainView.Refresh(session);
-
-                //session.OnMessage(param.ConvertToMessage());
-            });
+            mainView.SendMessage = session.OnMessage;
         }
     }
-
-    //static class CommandParameterExtensions
-    //{
-    //    public static IMessage ConvertToMessage(this MainView.CommandParameter parameter)
-    //    {
-
-    //    }
-    //}
 }

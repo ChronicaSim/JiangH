@@ -2,6 +2,7 @@
 	"name": "JiangH.Sessions",
 	"rootNamespace": "JiangH.Sessions",
     "references": [
+        "JiangH.Views.Messages",
         "JiangH.Data.Interfaces",
         "JiangH.Data.Persons",
         "JiangH.Data.Departs",

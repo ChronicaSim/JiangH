@@ -12,16 +12,7 @@ namespace JiangH.Views
 {
     public class MainView : ViewModelBehaviour
     {
-        public class CommandParameter
-        {
-        }
-
-        public class CmdNextTurnParameter : CommandParameter
-        {
-
-        }
-
-        public Action<CommandParameter> OnCommmand;
+        public new Action<IMessage> SendMessage;
 
         public RelayCommand cmdNextTurn { get; private set; }
 
@@ -42,7 +33,9 @@ namespace JiangH.Views
 
         public override void OnStart()
         {
-            cmdNextTurn = new RelayCommand(() => OnCommmand.Invoke(new CmdNextTurnParameter()));
+            ViewModel.SendMessage = SendMessage;
+
+            cmdNextTurn = new RelayCommand(() => SendMessage.Invoke(new NextTurn()));
         }
 
         // Update is called once per frame

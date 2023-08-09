@@ -50,7 +50,7 @@ namespace JiangH.Bindings
                 mainView.Refresh(session);
             };
 
-            mainView.nextTurn.onClick.AddListener(() =>
+            mainView.cmdNextTurn.execute = (() =>
             {
                 session.OnNextTurn();
                 mainView.Refresh(session);

@@ -11,6 +11,9 @@ namespace JiangH.Views
 {
     public class MainView : ViewModelBehaviour
     {
+        public RelayCommand cmdNextTurn { get; } = new RelayCommand();
+        public RelayCommand cmdSwitchView { get; } = new RelayCommand();
+
         private SectViewModel sectViewModel;
         public SectViewModel SectViewModel
         {

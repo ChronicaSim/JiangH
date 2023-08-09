@@ -37,8 +37,13 @@ namespace uguimvvm
     /// </summary>
     public class RelayCommand : ICommand
     {
-        private readonly Action _execute;
-        private readonly Func<bool> _canExecute;
+        public Action execute;
+        public Func<bool> canExecute;
+
+        public RelayCommand()
+        {
+
+        }
 
         /// <summary>
         /// Creates a new command.
@@ -47,20 +52,20 @@ namespace uguimvvm
         /// <param name="canExecute">The delegate to be invoked for the <see cref="CanExecute(object)"/> method.  If not provided <see cref="CanExecute(object)"/> will always return <c>true</c>.</param>
         public RelayCommand(Action execute, Func<bool> canExecute = null)
         {
-            _execute = execute;
-            _canExecute = canExecute;
+            this.execute = execute;
+            this.canExecute = canExecute;
         }
 
         /// <inheritdoc />
         public bool CanExecute(object parameter)
         {
-            return _canExecute == null || _canExecute();
+            return canExecute == null || canExecute();
         }
 
         /// <inheritdoc />
         public void Execute(object parameter)
         {
-            _execute();
+            execute?.Invoke();
         }
 
         /// <summary>

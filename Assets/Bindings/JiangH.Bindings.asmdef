@@ -2,6 +2,7 @@
 	"name": "JiangH.Bindings",
 	"rootNamespace": "JiangH.Bindings",
     "references": [
+        "JiangH.Plugins",
         "JiangH.Views",
         "JiangH.Data.Interfaces",
         "JiangH.Sessions"

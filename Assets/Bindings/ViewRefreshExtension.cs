@@ -12,11 +12,6 @@ static class ViewRefreshExtension
     public static Func<IOffice, IPerson> GetOffice2Person;
     public static Func<ISect, IEnumerable<IDepart>> GetSect2Departs;
 
-    public static void ClearDesignData(this MainView mainView)
-    {
-        mainView.persons.Clear();
-    }
-
     public static void Refresh(this MainView mainView, Session session)
     {
         GetDepart2Persons = session.relationQuery.GetDepart2Persons;
